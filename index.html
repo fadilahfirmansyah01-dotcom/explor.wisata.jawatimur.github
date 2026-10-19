@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wisata Jawa Timur — Jelajah Primadona, Budaya Lokal & Pesisir Eksotis</title>
+  <meta name="description" content="Portal panduan wisata resmi Jawa Timur: Jelajah Bromo, Ijen, Baluran, desa adat Osing, peninggalan Majapahit, hingga pantai eksotis Pacitan dan Malang." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfdf5',
+              100: '#d1fae5',
+              500: '#10b981',
+              600: '#059669',
+              700: '#047857',
+              800: '#065f46',
+              900: '#064e3b'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts & Custom CSS -->
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased selection:bg-emerald-500 selection:text-white">
+
+  <!-- ==================== HEADER & NAVBAR ==================== -->
+  <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 glass-nav">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform duration-200">
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <div>
+            <span class="text-2xl font-black tracking-tight text-slate-900 group-hover:text-emerald-600 transition-colors">
+              Wisata
+            </span>
+            <span class="block text-[10px] uppercase tracking-widest text-emerald-700 font-bold -mt-1">
+              Jawa Timur
+            </span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden lg:flex items-center gap-1 xl:gap-2">
+          <a href="#home" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50/70 transition-all">
+            Beranda
+          </a>
+          <button onclick="window.wisataApp.setCategory('ikon')" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50/70 transition-all flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            JelajahJatim
+          </button>
+          <button onclick="window.wisataApp.setCategory('lokal')" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-amber-600 hover:bg-amber-50/70 transition-all flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            PesonaLokal Jatim
+          </button>
+          <button onclick="window.wisataApp.setCategory('bahari')" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-sky-600 hover:bg-sky-50/70 transition-all flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+            Bahari & Pesisir
+          </button>
+          <a href="#tips" class="px-3.5 py-2 rounded-xl text-sm font-semibold text-slate-700 hover:text-emerald-600 hover:bg-emerald-50/70 transition-all">
+            Panduan Wisata
+          </a>
+        </nav>
+
+        <!-- Right Action Buttons -->
+        <div class="hidden sm:flex items-center gap-3">
+          <!-- Favorite Wishlist Button -->
+          <button 
+            onclick="window.wisataApp.setCategory('favorites')"
+            aria-label="Lihat Favorit Saya"
+            class="relative flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-rose-300 text-slate-700 hover:text-rose-600 shadow-sm transition-all"
+          >
+            <svg class="w-5 h-5 text-rose-500 fill-rose-500" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <span class="text-xs font-bold hidden md:inline">Favorit</span>
+            <span id="favCountBadge" class="bg-rose-500 text-white text-[11px] font-bold px-1.5 py-0.2 rounded-full min-w-[20px] text-center">0</span>
+          </button>
+
+          <!-- Explore Button CTA -->
+          <a 
+            href="#destinations" 
+            class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/25 hover:shadow-lg transition-all active:scale-95"
+          >
+            <span>Eksplorasi Jatim</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Hamburger Button -->
+        <div class="flex items-center gap-2 lg:hidden">
+          <button 
+            onclick="window.wisataApp.setCategory('favorites')"
+            class="relative p-2.5 rounded-xl bg-slate-100 text-slate-700 sm:hidden"
+            aria-label="Favorit"
+          >
+            <svg class="w-5 h-5 text-rose-500 fill-rose-500" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <span id="mobileFavCountBadge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold px-1 rounded-full min-w-[16px] text-center">0</span>
+          </button>
+
+          <button 
+            id="mobileMenuBtn" 
+            aria-label="Buka Menu" 
+            class="p-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors"
+          >
+            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200/80 bg-white/95 backdrop-blur-md px-4 py-4 space-y-2 shadow-xl animate-fade-in">
+      <a href="#home" class="block px-3 py-2.5 rounded-xl text-base font-semibold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600">Beranda</a>
+      <button onclick="window.wisataApp.setCategory('ikon')" class="w-full text-left px-3 py-2.5 rounded-xl text-base font-semibold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600 flex items-center justify-between">
+        <span>JelajahJatim</span>
+        <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-md">Primadona</span>
+      </button>
+      <button onclick="window.wisataApp.setCategory('lokal')" class="w-full text-left px-3 py-2.5 rounded-xl text-base font-semibold text-slate-700 hover:bg-amber-50 hover:text-amber-600 flex items-center justify-between">
+        <span>PesonaLokal Jatim</span>
+        <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2 py-0.5 rounded-md">Budaya & Hidden Gems</span>
+      </button>
+      <button onclick="window.wisataApp.setCategory('bahari')" class="w-full text-left px-3 py-2.5 rounded-xl text-base font-semibold text-slate-700 hover:bg-sky-50 hover:text-sky-600 flex items-center justify-between">
+        <span>Bahari & Pesisir</span>
+        <span class="text-xs bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded-md">Pantai & Kepulauan</span>
+      </button>
+      <a href="#tips" class="block px-3 py-2.5 rounded-xl text-base font-semibold text-slate-700 hover:bg-emerald-50 hover:text-emerald-600">Panduan Wisata Jatim</a>
+      <a href="#destinations" class="block w-full text-center py-3 rounded-xl bg-emerald-600 text-white font-bold text-base shadow-md">
+        Katalog Destinasi
+      </a>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section id="home" class="relative pt-24 pb-20 md:pt-36 md:pb-32 overflow-hidden bg-slate-900">
+    <!-- Hero Background Image & Atmospheric Layers -->
+    <div class="absolute inset-0 z-0">
+      <img 
+        src="https://images.unsplash.com/photo-1588668214407-6ea9a6d8c272?auto=format&fit=crop&w=1920&q=80" 
+        alt="Wisata Gunung Bromo Jawa Timur" 
+        class="w-full h-full object-cover object-center brightness-60 scale-105"
+      />
+      <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-slate-950/70"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(5,150,105,0.22)_0,transparent_70%)]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <!-- Tag Pill -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-emerald-300 backdrop-blur-md mb-6 animate-fade-in">
+        <span class="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-xs sm:text-sm font-semibold tracking-wide">Panduan Resmi Destinasi Wisata Jawa Timur</span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.15] mb-6">
+        Keajaiban Wisata <br class="hidden sm:inline" />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-300 via-teal-200 to-amber-300">
+          Jawa Timur yang Memikat
+        </span>
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="max-w-3xl mx-auto text-base sm:text-lg md:text-xl text-slate-300 font-normal leading-relaxed mb-10">
+        Jelajahi kaldera magis Bromo dan fenomena Blue Fire Ijen di <strong class="text-emerald-400 font-semibold">JelajahJatim</strong>, selami desa adat Osing & kemegahan Majapahit di <strong class="text-amber-400 font-semibold">PesonaLokal</strong>, serta rasakan deburan ombak <strong class="text-sky-400 font-semibold">Bahari & Pesisir</strong> Pacitan dan Malang.
+      </p>
+
+      <!-- Hero Search Bar -->
+      <div class="max-w-2xl mx-auto bg-white/95 backdrop-blur-xl p-2 sm:p-2.5 rounded-2xl shadow-2xl border border-white/40 flex flex-col sm:flex-row items-center gap-2">
+        <div class="flex items-center gap-3 w-full px-3 py-2 text-slate-500">
+          <svg class="w-6 h-6 text-emerald-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input 
+            type="text" 
+            id="heroSearchInput" 
+            placeholder="Cari wisata Jatim... contoh: Bromo, Ijen, Tumpak Sewu, Pacitan, Batu" 
+            class="w-full bg-transparent text-slate-800 placeholder-slate-400 focus:outline-none text-sm sm:text-base font-medium"
+          />
+        </div>
+        <button 
+          id="heroSearchBtn"
+          type="button"
+          class="w-full sm:w-auto px-7 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm tracking-wide shadow-md shadow-emerald-600/30 transition-all shrink-0 active:scale-95 flex items-center justify-center gap-2"
+        >
+          <span>Temukan</span>
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Quick Category Shortcuts -->
+      <div class="mt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm">
+        <span class="text-slate-400 font-medium mr-1">Kategori Wisata Jatim:</span>
+        <button onclick="window.wisataApp.setCategory('ikon')" class="px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500 hover:text-white transition-colors">
+          🌋 JelajahJatim (Primadona)
+        </button>
+        <button onclick="window.wisataApp.setCategory('lokal')" class="px-3 py-1 rounded-full bg-amber-950/60 border border-amber-500/40 text-amber-300 hover:bg-amber-500 hover:text-white transition-colors">
+          🛖 PesonaLokal (Budaya & Hidden Gems)
+        </button>
+        <button onclick="window.wisataApp.setCategory('bahari')" class="px-3 py-1 rounded-full bg-sky-950/60 border border-sky-500/40 text-sky-300 hover:bg-sky-500 hover:text-white transition-colors">
+          🌊 Bahari & Pesisir Eksotis
+        </button>
+      </div>
+
+      <!-- Stats Bar -->
+      <div class="mt-14 pt-10 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-3xl font-extrabold text-white">38 Kota/Kab</div>
+          <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Potensi Wisata Jatim</div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold text-emerald-400">3 Kategori</div>
+          <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Panduan Terkurasi</div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold text-amber-400">100% Asli</div>
+          <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Jawa Timur Heritage</div>
+        </div>
+        <div>
+          <div class="text-3xl font-extrabold text-sky-400">UNESCO</div>
+          <div class="text-xs text-slate-400 uppercase tracking-wider mt-1">Global Geopark Ijen</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== 3 MAIN PILLARS SHOWCASE ==================== -->
+  <section class="py-16 -mt-8 relative z-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        
+        <!-- Pillar 1: JelajahJatim -->
+        <div 
+          onclick="window.wisataApp.setCategory('ikon')"
+          class="group glass-card rounded-3xl p-8 border-2 border-emerald-100 hover:border-emerald-500 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden bg-gradient-to-b from-white to-emerald-50/30"
+        >
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-emerald-100/50 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-emerald-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/30 mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-emerald-600 tracking-wider uppercase">Kategori 01</span>
+            <h3 class="text-2xl font-extrabold text-slate-900 group-hover:text-emerald-700 transition-colors mt-1 mb-3">
+              JelajahJatim
+            </h3>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              Destinasi primadona dan ikon pariwisata Jawa Timur yang mendunia. Lautan Pasir Bromo, fenomena Blue Fire Kawah Ijen, Niagara van Java Tumpak Sewu, padang savana Baluran, dan Kota Wisata Batu.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-emerald-600 font-bold text-sm group-hover:translate-x-1.5 transition-transform">
+            <span>Lihat Primadona Jatim</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Pillar 2: PesonaLokal Jatim -->
+        <div 
+          onclick="window.wisataApp.setCategory('lokal')"
+          class="group glass-card rounded-3xl p-8 border-2 border-amber-100 hover:border-amber-500 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden bg-gradient-to-b from-white to-amber-50/30"
+        >
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-amber-100/50 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-amber-600 text-white flex items-center justify-center shadow-lg shadow-amber-500/30 mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-amber-600 tracking-wider uppercase">Kategori 02</span>
+            <h3 class="text-2xl font-extrabold text-slate-900 group-hover:text-amber-700 transition-colors mt-1 mb-3">
+              PesonaLokal Jatim
+            </h3>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              Kekayaan budaya daerah dan hidden gems Jawa Timur. Menelusuri kearifan suku Osing Kemiren Banyuwangi, kota metropolitan kuno Majapahit Trowulan, bukit Kawah Wurung, dan Kampung Warna Jodipan.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-amber-600 font-bold text-sm group-hover:translate-x-1.5 transition-transform">
+            <span>Lihat Budaya & Desa Wisata</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Pillar 3: Bahari & Pesisir Jatim -->
+        <div 
+          onclick="window.wisataApp.setCategory('bahari')"
+          class="group glass-card rounded-3xl p-8 border-2 border-sky-100 hover:border-sky-500 shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer flex flex-col justify-between relative overflow-hidden bg-gradient-to-b from-white to-sky-50/30"
+        >
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-sky-100/50 rounded-full blur-2xl group-hover:scale-150 transition-transform"></div>
+          <div>
+            <div class="w-14 h-14 rounded-2xl bg-sky-600 text-white flex items-center justify-center shadow-lg shadow-sky-500/30 mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <span class="text-xs font-bold text-sky-600 tracking-wider uppercase">Kategori 03</span>
+            <h3 class="text-2xl font-extrabold text-slate-900 group-hover:text-sky-700 transition-colors mt-1 mb-3">
+              Bahari & Pesisir
+            </h3>
+            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+              Keindahan pantai eksotis dan kepulauan di Jawa Timur. Dari semburan Seruling Samudera Pantai Klayar, gugusan pulau Teluk Asmara, pasir putih Papuma Jember, hingga Pulau Oksigen Gili Iyang Madura.
+            </p>
+          </div>
+          <div class="flex items-center gap-2 text-sky-600 font-bold text-sm group-hover:translate-x-1.5 transition-transform">
+            <span>Eksplorasi Pantai Jatim</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== MAIN DESTINATION EXPLORER ==================== -->
+  <section id="destinations" class="py-20 bg-slate-50 border-t border-slate-200/60">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <span class="text-xs font-bold text-emerald-600 tracking-widest uppercase mb-1 block">
+            Katalog Wisata Jawa Timur
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+            Destinasi Terfavorit di Jawa Timur
+          </h2>
+          <p class="text-slate-500 text-sm sm:text-base mt-2 max-w-xl">
+            Temukan tempat wisata terbaik di seluruh penjuru Jawa Timur untuk liburan bersama keluarga atau berpetualang ke alam bebas. Harga tiket pada kartu adalah panduan tarif 2026; konfirmasikan tarif final kepada pengelola sebelum berangkat.
+          </p>
+        </div>
+        
+        <!-- Live Dest Search in Section -->
+        <div class="relative w-full md:w-80">
+          <svg class="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input 
+            type="text" 
+            id="searchInput" 
+            placeholder="Cari Bromo, Ijen, Malang, Pacitan..." 
+            class="w-full pl-11 pr-4 py-2.5 rounded-xl border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 shadow-sm transition-all"
+          />
+        </div>
+      </div>
+
+      <!-- Filter Buttons / Tabs -->
+      <div class="flex items-center justify-between flex-wrap gap-3 pb-6 border-b border-slate-200/80 mb-8">
+        <div class="flex flex-wrap items-center gap-2">
+          <button 
+            type="button" 
+            data-category="all" 
+            class="filter-btn active px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:border-emerald-400 transition-all shadow-sm"
+          >
+            Semua Wisata Jatim
+          </button>
+          <button 
+            type="button" 
+            data-category="ikon" 
+            class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:border-emerald-400 transition-all shadow-sm flex items-center gap-1.5"
+          >
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+            JelajahJatim (Primadona)
+          </button>
+          <button 
+            type="button" 
+            data-category="lokal" 
+            class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:border-amber-400 transition-all shadow-sm flex items-center gap-1.5"
+          >
+            <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+            PesonaLokal (Budaya)
+          </button>
+          <button 
+            type="button" 
+            data-category="bahari" 
+            class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:border-sky-400 transition-all shadow-sm flex items-center gap-1.5"
+          >
+            <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+            Bahari & Pesisir
+          </button>
+          <button 
+            type="button" 
+            data-category="favorites" 
+            class="filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-slate-700 border border-slate-200 hover:border-rose-400 transition-all shadow-sm flex items-center gap-1.5"
+          >
+            <svg class="w-4 h-4 text-rose-500 fill-rose-500" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            Favorit Saya
+          </button>
+        </div>
+
+        <span id="destinationsCount" class="text-xs font-semibold text-slate-500">
+          Memuat destinasi Jawa Timur...
+        </span>
+      </div>
+
+      <!-- Destinations Grid Container -->
+      <div id="destinationsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+
+      <!-- Empty State Container -->
+      <div id="emptyState" class="hidden text-center py-20 bg-white rounded-3xl border border-slate-200/80 p-8 max-w-lg mx-auto">
+        <div class="w-16 h-16 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 id="emptyStateTitle" class="text-xl font-bold text-slate-800 mb-2">Destinasi Tidak Ditemukan</h3>
+        <p id="emptyStateDesc" class="text-sm text-slate-500 mb-6">Coba kata kunci lain atau tampilkan semua wisata Jawa Timur.</p>
+        <button 
+          onclick="window.wisataApp.setCategory('all'); document.getElementById('searchInput').value = '';"
+          class="px-5 py-2.5 rounded-xl bg-emerald-600 text-white font-bold text-xs hover:bg-emerald-700 shadow-sm"
+        >
+          Tampilkan Semua Wisata Jatim
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== INTERACTIVE DESTINATION MODAL ==================== -->
+  <div 
+    id="detailModal" 
+    class="fixed inset-0 z-50 hidden items-center justify-center p-3 sm:p-5 bg-slate-950/75 backdrop-blur-md overflow-y-auto"
+  >
+    <div class="relative bg-white rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto modal-content-scale border border-slate-100 flex flex-col">
+      
+      <!-- Close Button -->
+      <button 
+        id="closeModalBtn" 
+        type="button" 
+        aria-label="Tutup Detail" 
+        class="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white backdrop-blur-md flex items-center justify-center transition-transform active:scale-90"
+      >
+        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Modal Image Cover -->
+      <div class="relative h-64 sm:h-80 w-full overflow-hidden shrink-0">
+        <img 
+          id="modalImage" 
+          src="" 
+          alt="Destinasi Jawa Timur" 
+          class="w-full h-full object-cover"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent"></div>
+        
+        <div class="absolute bottom-5 left-5 right-5 text-white">
+          <div class="flex flex-wrap items-center gap-2 mb-2">
+            <span id="modalCategory" class="text-xs font-semibold px-2.5 py-1 rounded-full">Kategori</span>
+            <span id="modalBadge" class="text-xs font-medium px-2.5 py-1 rounded-full bg-slate-900/80 text-white backdrop-blur-md">Badge</span>
+          </div>
+          <h3 id="modalTitle" class="text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight">Nama Destinasi</h3>
+          <div class="flex items-center gap-2 text-xs sm:text-sm text-slate-200 mt-1">
+            <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+            </svg>
+            <span id="modalLocation">Lokasi, Jawa Timur</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal Body Content -->
+      <div class="p-6 sm:p-8 space-y-6 flex-1">
+        
+        <!-- Quick Meta Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 p-4 rounded-2xl bg-slate-50 border border-slate-100 text-xs sm:text-sm">
+          <div>
+            <span class="text-slate-400 block font-medium">Rating Wisatawan:</span>
+            <div class="flex items-center gap-1.5 font-bold text-slate-800 mt-0.5">
+              <span class="text-amber-500">★</span>
+              <span id="modalRating" class="text-base">4.9</span>
+              <span id="modalReviews" class="text-xs text-slate-400 font-normal">(Ulasan)</span>
+            </div>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Tiket (panduan tarif 2026):</span>
+            <span id="modalPrice" class="font-bold text-emerald-700 block mt-0.5">Rp -</span>
+          </div>
+          <div>
+            <span class="text-slate-400 block font-medium">Waktu Berkunjung Terbaik:</span>
+            <span id="modalBestTime" class="font-medium text-slate-700 block mt-0.5">-</span>
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <h4 class="text-base font-bold text-slate-900 mb-2">Tentang Destinasi</h4>
+          <p id="modalDescription" class="text-slate-600 text-sm leading-relaxed whitespace-pre-line">
+            Deskripsi lengkap...
+          </p>
+        </div>
+
+        <!-- Highlights -->
+        <div>
+          <h4 class="text-base font-bold text-slate-900 mb-2">Daya Tarik & Pengalaman Utama</h4>
+          <ul id="modalHighlights" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <!-- Rendered dynamically -->
+          </ul>
+        </div>
+
+        <!-- Facilities -->
+        <div>
+          <h4 class="text-base font-bold text-slate-900 mb-2">Fasilitas yang Tersedia</h4>
+          <div id="modalFacilities" class="flex flex-wrap gap-2">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Ticket & Accommodation Guide -->
+        <div class="rounded-2xl border border-emerald-100 bg-emerald-50/60 p-5 sm:p-6">
+          <div class="mb-5">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700">Rencanakan Kunjungan</span>
+            <h4 class="mt-1 text-lg font-extrabold text-slate-900">Cara Beli Tiket & Cari Penginapan</h4>
+            <p class="mt-1 text-sm leading-relaxed text-slate-600">
+              Harga yang ditampilkan adalah kisaran/panduan tarif 2026 untuk wisatawan domestik. Tarif dapat berubah menurut hari, usia, paket, dan kebijakan pengelola.
+            </p>
+          </div>
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div class="rounded-xl border border-white bg-white p-4 shadow-sm">
+              <h5 class="text-sm font-bold text-slate-900">Tiket masuk</h5>
+              <p class="mt-1 text-xs leading-relaxed text-slate-600">
+                Pilih tanggal kunjungan dan jumlah tiket, lalu ikuti instruksi pembayaran. Periksa tarif final, syarat reservasi, dan gunakan kanal resmi pengelola.
+              </p>
+              <a id="modalTicketLink" href="#" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex text-xs font-bold text-emerald-700 hover:text-emerald-900">
+                Cari kanal tiket resmi ↗
+              </a>
+            </div>
+            <div class="rounded-xl border border-white bg-white p-4 shadow-sm">
+              <h5 class="text-sm font-bold text-slate-900">Hotel & penginapan</h5>
+              <p class="mt-1 text-xs leading-relaxed text-slate-600">Lihat pilihan penginapan di sekitar destinasi, ulasan, jarak, dan kontak untuk mengecek ketersediaan.</p>
+              <a id="modalHotelLink" href="#" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex text-xs font-bold text-emerald-700 hover:text-emerald-900">
+                Lihat hotel & penginapan ↗
+              </a>
+            </div>
+            <div class="rounded-xl border border-white bg-white p-4 shadow-sm">
+              <h5 class="text-sm font-bold text-slate-900">Vila</h5>
+              <p class="mt-1 text-xs leading-relaxed text-slate-600">Cari vila terdekat dan hubungi pengelola untuk memastikan tarif, kapasitas, serta fasilitas yang tersedia.</p>
+              <a id="modalVillaLink" href="#" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex text-xs font-bold text-emerald-700 hover:text-emerald-900">
+                Lihat vila di sekitar ↗
+              </a>
+            </div>
+          </div>
+          <p class="mt-4 text-xs leading-relaxed text-slate-500">
+            Nominal di kartu merupakan panduan, bukan jaminan harga jual. Biaya parkir, asuransi, pemandu, transportasi, wahana, dan aktivitas dapat dikenakan terpisah. Konfirmasikan harga serta ketersediaan tiket ke pengelola sebelum membayar.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer Actions -->
+      <div class="p-5 sm:p-6 bg-slate-50 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 shrink-0">
+        <div class="flex items-center gap-2">
+          <button 
+            id="modalFavBtn" 
+            type="button" 
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition-colors shadow-sm"
+          >
+            <svg class="w-5 h-5 text-slate-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <span class="text-sm font-semibold text-slate-700">Simpan ke Favorit</span>
+          </button>
+          
+          <button 
+            id="modalShareBtn" 
+            type="button" 
+            class="p-2.5 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 text-slate-600 shadow-sm" 
+            title="Bagikan Tautan"
+          >
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+            </svg>
+          </button>
+        </div>
+
+        <a 
+          id="modalMapsBtn" 
+          href="#" 
+          target="_blank" 
+          class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/25 transition-all"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          <span>Buka di Google Maps</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== TRAVEL TIPS & CULTURAL GUIDE ==================== -->
+  <section id="tips" class="py-20 bg-emerald-950 text-white relative overflow-hidden">
+    <div class="absolute -top-40 -right-40 w-96 h-96 bg-emerald-600/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-40 -left-40 w-96 h-96 bg-teal-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold text-emerald-400 tracking-widest uppercase mb-2 block">
+          Panduan Bertualang Jawa Timur
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+          Tips Liburan Nyaman & Aman di Jawa Timur
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base mt-3">
+          Dari suhu dingin ekstrem kawah pegunungan hingga etika adat lokal masyarakat suku Tengger dan Osing, persiapkan perjalanan Anda dengan panduan terbaik.
+        </p>
+      </div>
+
+      <!-- Tips Cards Container -->
+      <div id="travelTipsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-slate-800">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== TESTIMONIALS SECTION ==================== -->
+  <section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-bold text-emerald-600 tracking-widest uppercase mb-1 block">
+          Ulasan Wisatawan
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          Cerita Para Penjelajah Jawa Timur
+        </h2>
+        <p class="text-slate-500 text-sm sm:text-base mt-2">
+          Kesan dan pengalaman berharga para pelancong saat mengeksplorasi destinasi unggulan Jawa Timur.
+        </p>
+      </div>
+
+      <div id="testimonialsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== NEWSLETTER & TRIP PLANNER ==================== -->
+  <section class="py-16 bg-slate-900 text-white relative">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="rounded-3xl bg-gradient-to-r from-emerald-800 to-teal-900 p-8 sm:p-12 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+        <div class="max-w-xl">
+          <span class="text-xs font-bold text-emerald-300 tracking-widest uppercase block mb-1">
+            Newsletter Wisata Jawa Timur
+          </span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-2">
+            Dapatkan Rute Hidden Gem & Info Tiket Jatim Terbaru
+          </h3>
+          <p class="text-emerald-100 text-sm leading-relaxed">
+            Daftarkan email Anda untuk menerima panduan mingguan rute sunrise Bromo, jadwal festival adat Banyuwangi, serta rekomendasi pantai terbaru di Jawa Timur.
+          </p>
+        </div>
+
+        <form id="newsletterForm" class="w-full md:w-auto shrink-0 flex flex-col sm:flex-row gap-2">
+          <input 
+            type="email" 
+            required 
+            placeholder="Masukkan email Anda..." 
+            class="px-4 py-3 rounded-xl bg-white/95 text-slate-800 placeholder-slate-400 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-emerald-400 shadow-md min-w-[260px]"
+          />
+          <button 
+            type="submit" 
+            class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-slate-950 font-extrabold text-sm shadow-lg transition-transform active:scale-95"
+          >
+            Berlangganan
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="bg-slate-950 text-slate-400 pt-16 pb-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800/80">
+        
+        <!-- Brand Info -->
+        <div class="lg:col-span-2 space-y-4">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white font-bold shadow-md">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span class="text-2xl font-black text-white tracking-tight">Wisata Jawa Timur</span>
+          </div>
+          <p class="text-sm text-slate-400 leading-relaxed max-w-sm">
+            Portal panduan pariwisata resmi dan terpadu untuk mengeksplorasi keagungan alam, kekayaan budaya suku asli, dan bentang pesisir pantai eksotis Jawa Timur.
+          </p>
+          <div class="flex items-center gap-3 pt-2 text-slate-400">
+            <span class="inline-flex items-center gap-1.5 text-xs text-emerald-400 bg-emerald-950/70 border border-emerald-800/60 px-3 py-1 rounded-full font-medium">
+              🌾 Pesona Keindahan Jawa Timur
+            </span>
+          </div>
+        </div>
+
+        <!-- Col 1: Jelajah Jatim -->
+        <div>
+          <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">JelajahJatim</h4>
+          <ul class="space-y-2 text-sm">
+            <li><button onclick="window.wisataApp.openDetail('gunung-bromo')" class="hover:text-emerald-400 transition-colors">Gunung Bromo</button></li>
+            <li><button onclick="window.wisataApp.openDetail('kawah-ijen')" class="hover:text-emerald-400 transition-colors">Kawah Ijen Blue Fire</button></li>
+            <li><button onclick="window.wisataApp.openDetail('tumpak-sewu')" class="hover:text-emerald-400 transition-colors">Air Terjun Tumpak Sewu</button></li>
+            <li><button onclick="window.wisataApp.openDetail('tn-baluran')" class="hover:text-emerald-400 transition-colors">Savana Baluran</button></li>
+            <li><button onclick="window.wisataApp.openDetail('madakaripura')" class="hover:text-emerald-400 transition-colors">Air Terjun Madakaripura</button></li>
+            <li><button onclick="window.wisataApp.openDetail('kota-batu')" class="hover:text-emerald-400 transition-colors">Museum Angkut Batu</button></li>
+            <li><button onclick="window.wisataApp.openDetail('taman-safari-prigen')" class="hover:text-emerald-400 transition-colors">Taman Safari Prigen</button></li>
+          </ul>
+        </div>
+
+        <!-- Col 2: Pesona Lokal -->
+        <div>
+          <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">PesonaLokal Jatim</h4>
+          <ul class="space-y-2 text-sm">
+            <li><button onclick="window.wisataApp.openDetail('desa-osing-kemiren')" class="hover:text-amber-400 transition-colors">Desa Adat Osing Kemiren</button></li>
+            <li><button onclick="window.wisataApp.openDetail('trowulan-majapahit')" class="hover:text-amber-400 transition-colors">Situs Majapahit Trowulan</button></li>
+            <li><button onclick="window.wisataApp.openDetail('kawah-wurung')" class="hover:text-amber-400 transition-colors">Kawah Wurung Bondowoso</button></li>
+            <li><button onclick="window.wisataApp.openDetail('desa-pujon-kidul')" class="hover:text-amber-400 transition-colors">Desa Wisata Pujon Kidul</button></li>
+            <li><button onclick="window.wisataApp.openDetail('kampung-jodipan')" class="hover:text-amber-400 transition-colors">Kampung Warna Jodipan</button></li>
+            <li><button onclick="window.wisataApp.openDetail('coban-rondo')" class="hover:text-amber-400 transition-colors">Coban Rondo & Labirin</button></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Bahari & Pesisir -->
+        <div>
+          <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Bahari & Pesisir</h4>
+          <ul class="space-y-2 text-sm">
+            <li><button onclick="window.wisataApp.openDetail('pantai-klayar')" class="hover:text-sky-400 transition-colors">Pantai Klayar Pacitan</button></li>
+            <li><button onclick="window.wisataApp.openDetail('teluk-asmara')" class="hover:text-sky-400 transition-colors">Teluk Asmara Malang</button></li>
+            <li><button onclick="window.wisataApp.openDetail('pantai-papuma')" class="hover:text-sky-400 transition-colors">Tanjung Papuma Jember</button></li>
+            <li><button onclick="window.wisataApp.openDetail('gili-iyang')" class="hover:text-sky-400 transition-colors">Gili Iyang Pulau Oksigen</button></li>
+            <li><button onclick="window.wisataApp.openDetail('pantai-sukamade')" class="hover:text-sky-400 transition-colors">Penyu Sukamade Meru Betiri</button></li>
+            <li><button onclick="window.wisataApp.openDetail('pantai-kasap')" class="hover:text-sky-400 transition-colors">Pantai Kasap Pacitan</button></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Credits -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <p>© 2026 Wisata Jawa Timur. Seluruh hak cipta dilindungi undang-undang.</p>
+        <div class="flex items-center gap-6">
+          <a href="#destinations" class="hover:text-slate-300 transition-colors">Katalog Wisata Jatim</a>
+          <a href="#tips" class="hover:text-slate-300 transition-colors">Panduan</a>
+          <button onclick="window.wisataApp.setCategory('favorites')" class="hover:text-slate-300 transition-colors">Favorit Saya</button>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ==================== FLOATING INTERACTION ELEMENTS ==================== -->
+  
+  <!-- Scroll to Top Button -->
+  <button 
+    id="scrollTopBtn"
+    type="button"
+    aria-label="Kembali ke atas"
+    class="fixed bottom-6 right-6 z-40 w-12 h-12 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-xl flex items-center justify-center opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 active:scale-95"
+  >
+    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+    </svg>
+  </button>
+
+  <!-- Toast Notification Pill -->
+  <div 
+    id="toastNotification" 
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3 rounded-2xl bg-slate-900 text-white shadow-2xl border border-slate-700 transition-all duration-300 translate-y-20 opacity-0 pointer-events-none"
+  >
+    <div id="toastIcon" class="shrink-0">
+      <!-- Icon rendered via JS -->
+    </div>
+    <span id="toastMessage" class="text-sm font-semibold">Pemberitahuan</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

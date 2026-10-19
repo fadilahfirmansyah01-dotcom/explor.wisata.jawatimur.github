@@ -1,0 +1,13 @@
+# Windows thumbnail cache
+Thumbs.db
+ehthumbs.db
+
+# Folder config
+Desktop.ini
+
+# IDE config
+.vscode/
+.idea/
+
+# OS generated
+.DS_Store
